@@ -1,0 +1,35 @@
+<%-- Khung man hinh khach hang (khong can dang nhap). Trang goi khai bao: PAGE_TITLE, MENU, SIZE. --%>
+<%
+    String ctxPath = request.getContextPath();
+    @SuppressWarnings("unchecked")
+    List<OrderDetail0> headerCart = (List<OrderDetail0>) session.getAttribute("cart");
+    int cartCount = 0;
+    if (headerCart != null) for (OrderDetail0 cd : headerCart) cartCount += cd.getQuantity();
+    String flashOk = (String) session.getAttribute("flashOk");
+    String flashErr = (String) session.getAttribute("flashErr");
+    session.removeAttribute("flashOk");
+    session.removeAttribute("flashErr");
+%>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= Format0.h(PAGE_TITLE) %></title>
+    <link rel="stylesheet" href="<%= ctxPath %>/assets/css/style.css">
+</head>
+<body>
+<div class="topline">
+    <span class="who"><b>Nhà hàng</b></span>
+    <span class="sep">|</span>
+    <a href="<%= ctxPath %>/khachhang/SearchDishView0.jsp" class="<%= "menu".equals(MENU) ? "on" : "" %>">Tìm kiếm món ăn</a>
+    <a href="<%= ctxPath %>/khachhang/BookTableView0.jsp" class="<%= "book".equals(MENU) ? "on" : "" %>">Đặt bàn trực tuyến</a>
+    <a href="<%= ctxPath %>/khachhang/OnlineOrderView0.jsp" class="<%= "order".equals(MENU) ? "on" : "" %>">Đặt món trực tuyến<%= cartCount > 0 ? " (" + cartCount + ")" : "" %></a>
+    <span class="spacer"></span>
+    <a href="<%= ctxPath %>/chung/LoginView0.jsp">Nhân viên đăng nhập</a>
+</div>
+<div class="screen <%= SIZE %>">
+    <div class="screen-title"><%= Format0.h(PAGE_TITLE) %></div>
+    <div class="screen-body">
+        <% if (flashOk != null) { %><div class="alert ok"><%= Format0.h(flashOk) %></div><% } %>
+        <% if (flashErr != null) { %><div class="alert err"><%= Format0.h(flashErr) %></div><% } %>

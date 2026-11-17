@@ -1,0 +1,59 @@
+<%-- Khung man hinh nhan vien. Trang goi khai bao truoc: PAGE_TITLE, MENU, SIZE ("s", "m", "l") va da include guard.jspf.
+     Co the dat request attribute "screenTitle" de doi tieu de thanh xanh (tieu de dong). --%>
+<%
+    String ctxPath = request.getContextPath();
+    String[][] menuItems;
+    String roleName;
+    if ("MANAGER".equals(currentStaff.getRole())) {
+        roleName = "Nhân viên quản lý";
+        menuItems = new String[][]{
+            {"home", "/quanly/ManagerHomeView0.jsp", "Trang chủ"},
+            {"dish", "/quanly/ManageDishView0.jsp", "Quản lý thông tin món ăn"},
+            {"combo", "/quanly/ManageComboView0.jsp", "Lập thực đơn combo"},
+            {"stat", "/quanly/StatisticView0.jsp", "Xem thống kê"}};
+    } else if ("WAREHOUSE".equals(currentStaff.getRole())) {
+        roleName = "Nhân viên kho";
+        menuItems = new String[][]{
+            {"home", "/kho/WarehouseHomeView0.jsp", "Trang chủ"},
+            {"import", "/kho/SearchSupplierView0.jsp?mode=import", "Nhập nguyên liệu"},
+            {"supplier", "/kho/SearchSupplierView0.jsp?mode=manage", "Quản lý thông tin nhà cung cấp"},
+            {"invoices", "/kho/ImportInvoiceListView0.jsp", "Danh sách phiếu nhập"}};
+    } else {
+        roleName = "Nhân viên bán hàng";
+        menuItems = new String[][]{
+            {"home", "/banhang/SaleHomeView0.jsp", "Trang chủ"},
+            {"receive", "/banhang/ReceiveCustomerView0.jsp", "Tiếp nhận khách"},
+            {"order", "/banhang/TakeOrderView0.jsp", "Ghi nhận gọi món"},
+            {"payment", "/banhang/PaymentView0.jsp", "Thanh toán tại bàn"},
+            {"card", "/banhang/MembershipCardView0.jsp", "Lập thẻ thành viên"},
+            {"confirm", "/banhang/ConfirmReservationView0.jsp", "Xác nhận đặt bàn, đơn trực tuyến"}};
+    }
+    String flashOk = (String) session.getAttribute("flashOk");
+    String flashErr = (String) session.getAttribute("flashErr");
+    session.removeAttribute("flashOk");
+    session.removeAttribute("flashErr");
+    String screenTitle = request.getAttribute("screenTitle") != null ? (String) request.getAttribute("screenTitle") : PAGE_TITLE;
+%>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= Format0.h(screenTitle) %></title>
+    <link rel="stylesheet" href="<%= ctxPath %>/assets/css/style.css">
+</head>
+<body>
+<div class="topline">
+    <span class="who">Nhân viên: <b><%= Format0.h(currentStaff.getFullName()) %></b> (<%= roleName %>)</span>
+    <span class="sep">|</span>
+    <% for (String[] it : menuItems) { %>
+    <a href="<%= ctxPath %><%= it[1] %>" class="<%= it[0].equals(MENU) ? "on" : "" %>"><%= it[2] %></a>
+    <% } %>
+    <span class="spacer"></span>
+    <a href="<%= ctxPath %>/chung/doLogout0.jsp">Đăng xuất</a>
+</div>
+<div class="screen <%= SIZE %>">
+    <div class="screen-title"><%= Format0.h(screenTitle) %></div>
+    <div class="screen-body">
+        <% if (flashOk != null) { %><div class="alert ok"><%= Format0.h(flashOk) %></div><% } %>
+        <% if (flashErr != null) { %><div class="alert err"><%= Format0.h(flashErr) %></div><% } %>

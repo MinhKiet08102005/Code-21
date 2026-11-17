@@ -1,0 +1,8 @@
+<%-- Kiem tra dang nhap va vai tro. Trang goi phai khai bao truoc: String REQUIRED_ROLE = "MANAGER" (co the nhieu vai tro, cach nhau dau phay). --%>
+<%
+    Staff0 currentStaff = (Staff0) session.getAttribute("staff");
+    if (currentStaff == null || !Arrays.asList(REQUIRED_ROLE.split(",")).contains(currentStaff.getRole())) {
+        response.sendRedirect(request.getContextPath() + "/chung/LoginView0.jsp?need=1");
+        return;
+    }
+%>

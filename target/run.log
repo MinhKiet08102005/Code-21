@@ -1,0 +1,18 @@
+Nov 17, 2026 9:56:37 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-nio-8095"]
+Nov 17, 2026 9:56:37 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service [Tomcat]
+Nov 17, 2026 9:56:37 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet engine: [Apache Tomcat/10.1.34]
+Nov 17, 2026 9:56:38 AM org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment
+INFO: No global web.xml found
+Nov 17, 2026 9:56:39 AM org.apache.jasper.servlet.TldScanner scanJars
+INFO: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+Nov 17, 2026 9:56:40 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-nio-8095"]
+
+==============================================================
+  He thong quan li nha hang dang chay tai: http://localhost:8095/
+  Tai khoan: quanly / kho / banhang  - mat khau 123456
+  Nhan Ctrl+C de dung.
+==============================================================
